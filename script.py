@@ -7,7 +7,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException,TimeoutException
 from googlesearch import search
 from fake_useragent import UserAgent
-from webdriver_manager.chrome import ChromeDriverManager
 import re
 import urllib
 import html2text
@@ -16,8 +15,8 @@ ua = UserAgent()
 user_agent = ua.random
 print(user_agent)
 search_access = True
-service = Service(ChromeDriverManager().install())
-options = Options()
+
+options = webdriver.ChromeOptions()
 options.add_argument('headless')
 options.add_argument(f'--user-agent={user_agent}')
 options.add_argument('--disable-infobars')
@@ -35,7 +34,7 @@ options.add_argument('--remote-debugging-port=9222')
 
 def websearch_results(url):
 
-    driver = webdriver.Chrome(service=service,options=options)
+    driver = webdriver.Chrome(options=options)
     driver.set_page_load_timeout(3)
     html = ""
     output = ""
